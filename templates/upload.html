@@ -1,26 +1,235 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Instagram Scheduler</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader - Video Scheduler</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:30px;
+            background:
+                radial-gradient(circle at top left,#ff005c33,transparent 40%),
+                radial-gradient(circle at bottom right,#00d4ff33,transparent 40%),
+                linear-gradient(135deg,#0f172a,#020617,#111827);
+            overflow:hidden;
+        }
+
+        .background-circle{
+            position:absolute;
+            width:350px;
+            height:350px;
+            border-radius:50%;
+            filter:blur(100px);
+            z-index:0;
+        }
+
+        .circle1{
+            background:#ff006e55;
+            top:-100px;
+            left:-100px;
+        }
+
+        .circle2{
+            background:#00c2ff55;
+            bottom:-100px;
+            right:-100px;
+        }
+
+        .container{
+            width:100%;
+            max-width:700px;
+            padding:40px;
+            border-radius:30px;
+            background:rgba(255,255,255,0.06);
+            backdrop-filter:blur(20px);
+            border:1px solid rgba(255,255,255,0.12);
+            box-shadow:0 25px 50px rgba(0,0,0,0.5);
+            position:relative;
+            z-index:1;
+        }
+
+        .logo{
+            text-align:center;
+            margin-bottom:35px;
+        }
+
+        .logo h1{
+            font-size:42px;
+            color:white;
+            margin-bottom:10px;
+        }
+
+        .logo span{
+            background:linear-gradient(90deg,#ff006e,#00d4ff);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+        .logo p{
+            color:#94a3b8;
+            font-size:15px;
+        }
+
+        .input-group{
+            margin-bottom:22px;
+        }
+
+        .input-group label{
+            display:block;
+            color:#e2e8f0;
+            margin-bottom:10px;
+            font-size:14px;
+            font-weight:500;
+        }
+
+        .file-box{
+            border:2px dashed rgba(255,255,255,0.2);
+            border-radius:18px;
+            padding:35px;
+            text-align:center;
+            transition:0.3s;
+            background:rgba(255,255,255,0.03);
+        }
+
+        .file-box:hover{
+            border-color:#00d4ff;
+            transform:translateY(-2px);
+        }
+
+        input[type="file"]{
+            color:white;
+            width:100%;
+        }
+
+        textarea,
+        input[type="datetime-local"]{
+            width:100%;
+            padding:18px;
+            border:none;
+            border-radius:18px;
+            background:rgba(255,255,255,0.07);
+            color:white;
+            outline:none;
+            font-size:15px;
+            border:1px solid transparent;
+            transition:0.3s;
+        }
+
+        textarea{
+            min-height:140px;
+            resize:none;
+        }
+
+        textarea:focus,
+        input[type="datetime-local"]:focus{
+            border-color:#00d4ff;
+            box-shadow:0 0 20px rgba(0,212,255,0.2);
+        }
+
+        textarea::placeholder{
+            color:#94a3b8;
+        }
+
+        .submit-btn{
+            width:100%;
+            padding:18px;
+            border:none;
+            border-radius:18px;
+            background:linear-gradient(135deg,#ff006e,#8338ec,#00d4ff);
+            color:white;
+            font-size:18px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .submit-btn:hover{
+            transform:translateY(-3px);
+            box-shadow:0 15px 35px rgba(131,56,236,0.45);
+        }
+
+        .footer{
+            text-align:center;
+            margin-top:25px;
+            color:#94a3b8;
+            font-size:13px;
+        }
+
+        @media(max-width:768px){
+            .container{
+                padding:25px;
+            }
+
+            .logo h1{
+                font-size:32px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<h1>Instagram Video Scheduler</h1>
+<div class="background-circle circle1"></div>
+<div class="background-circle circle2"></div>
 
-<form action="/upload" method="post" enctype="multipart/form-data">
+<div class="container">
 
-    <input type="file" name="video" required>
-    <br><br>
+    <div class="logo">
+        <h1><span>Uploader</span> 🚀</h1>
+        <p>Schedule your videos and publish automatically</p>
+    </div>
 
-    <textarea name="caption" placeholder="Caption"></textarea>
-    <br><br>
+    <form action="/upload" method="post" enctype="multipart/form-data">
 
-    <input type="datetime-local" name="upload_time" required>
-    <br><br>
+        <div class="input-group">
+            <label>📹 Select Video</label>
 
-    <button type="submit">Schedule Video</button>
+            <div class="file-box">
+                <input type="file" name="video" required>
+            </div>
+        </div>
 
-</form>
+        <div class="input-group">
+            <label>✍ Caption & Hashtags</label>
+
+            <textarea
+                name="caption"
+                placeholder="Write your caption here... #viral #fyp #trending">
+            </textarea>
+        </div>
+
+        <div class="input-group">
+            <label>🕒 Schedule Date & Time</label>
+
+            <input type="datetime-local"
+                   name="upload_time"
+                   required>
+        </div>
+
+        <button class="submit-btn" type="submit">
+            🚀 Schedule Video
+        </button>
+
+    </form>
+
+    <div class="footer">
+        Uploader © 2026 • TikTok & Instagram Scheduler
+    </div>
+
+</div>
 
 </body>
 </html>
