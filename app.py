@@ -59,3 +59,18 @@ async def upload_video(
 @app.get("/health")
 async def health():
     return {"status": "running"}
+from fastapi.responses import HTMLResponse
+
+@app.get("/terms", response_class=HTMLResponse)
+async def terms(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="terms.html"
+    )
+
+@app.get("/privacy", response_class=HTMLResponse)
+async def privacy(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="privacy.html"
+    )
