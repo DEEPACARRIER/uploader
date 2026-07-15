@@ -74,3 +74,11 @@ async def privacy(request: Request):
         request=request,
         name="privacy.html"
     )
+from fastapi.responses import PlainTextResponse
+
+@app.get(
+    "/tiktokPdaPMKTCwCWPN6gL6UxZYHUUp8mCBhJz.txt",
+    response_class=PlainTextResponse
+)
+async def tiktok_verification():
+    return "tiktok-developers-site-verification=PdaPMKTCwCWPN6gL6UxZYHUUp8mCBhJz"
